@@ -38,8 +38,15 @@ def jogar(tabuleiro):
     jogadas = pesar(tabuleiro[0],tabuleiro[1],tabuleiro[2],tabuleiro[3])
     return jogadas.index(max(jogadas))
 
-def vencedor(i):
-    print("Vencedor é " + str(i-1))
+def vencedor(i, tipo):
+    if (tipo == "PVP"):
+        print("Vencedor é o jogador " + str(i-1))
+
+    if (tipo == "PVM"):
+        if (i == 2):
+            print("Você venceu!")
+        else:
+            print("Você perdeu!")
 
 def empate():
     print("Deu empate")
@@ -65,10 +72,10 @@ def pvp():
     while True:
         #Verifica se o jogo acabou
         if ((tabuleiro[0] == tabuleiro[3]) and tabuleiro[0] != 1):
-            vencedor(tabuleiro[0])
+            vencedor(tabuleiro[0], "PVP")
             break
         elif ((tabuleiro[1] == tabuleiro[2]) and tabuleiro[1] != 1):
-            vencedor(tabuleiro[1])
+            vencedor(tabuleiro[1], "PVP")
             break
         elif (((tabuleiro[0] == tabuleiro[1]) and (tabuleiro[2] == tabuleiro[3]) or (tabuleiro[0] == tabuleiro[2]) and (tabuleiro[1] == tabuleiro[3])) and tabuleiro[0] != 1 and tabuleiro[2] != 1):
             empate()
@@ -92,25 +99,25 @@ def pvm():
     while True:
         #Verifica se o jogo acabou
         if ((tabuleiro[0] == tabuleiro[3]) and tabuleiro[0] != 1):
-            vencedor(tabuleiro[0])
+            vencedor(tabuleiro[0], "PVM")
             break
         elif ((tabuleiro[1] == tabuleiro[2]) and tabuleiro[1] != 1):
-            vencedor(tabuleiro[1])
+            vencedor(tabuleiro[1], "PVM")
             break
         elif (((tabuleiro[0] == tabuleiro[1]) and (tabuleiro[2] == tabuleiro[3]) or (tabuleiro[0] == tabuleiro[2]) and (tabuleiro[1] == tabuleiro[3])) and tabuleiro[0] != 1 and tabuleiro[2] != 1):
             empate()
             break
         else:
             if (vezDe == 1):
-                print("Sua vez:")            
+                print("\nSua vez:")            
                 i = int(input(">>> "))
             else:
-                print("Vez da máquina!")
+                print("\nVez da máquina!")
                 i = jogar(tabuleiro)
             if (i >= 0 and i < 4) and tabuleiro[i] == 1:
                 tabuleiro[i] = vezDe + 1
             else:
-                print("Jogou errado!")
+                print("\nJogou errado, perdeu a vez!")
 
             vezDe = (vezDe % 2) + 1
             printTabuleiro(tabuleiro)
